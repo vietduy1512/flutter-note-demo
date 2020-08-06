@@ -49,6 +49,10 @@ class TodoListState extends State {
               debugPrint(this.todos[position].id.toString() + " is tapped.");
               navigateToDetail(this.todos[position]);
             },
+            trailing: FlatButton(
+              onPressed: () => delete(position),
+              child: Icon(Icons.delete),
+            )
           )
         );
       },
@@ -95,5 +99,20 @@ class TodoListState extends State {
     bool result = await Navigator.push(context,
       MaterialPageRoute(builder: (context) => TodoDetail(todo))
     );
+    if (result == true) {
+      getData();
+    }
+  }
+
+  void delete(int position) async {
+    var result = await helper.deleteTodo(this.todos[position].id);
+    if (result != 0) {
+      AlertDialog alertDialog = AlertDialog(
+        title: Text("Delete successfully"),
+        content: Text(this.todos[position].title + " has been deleted")
+      );
+      showDialog(context: context, builder: (_) => alertDialog);
+      getData();
+    }
   }
 }
