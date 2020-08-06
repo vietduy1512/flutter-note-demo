@@ -28,8 +28,25 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Text(widget.title),
+      body: ListView.builder(
+        itemCount: 4,
+        itemBuilder: (BuildContext context, int position) {
+          return Card(
+            color: Colors.white,
+            elevation: 2.0,
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.red,
+                child: Text("Test")
+              ),
+              title: Text("Test"),
+              subtitle: Text("Test"),
+              onTap: () {
+                debugPrint("Button is tapped.");
+              },
+            )
+          );
+        },
       )
     );
   }
